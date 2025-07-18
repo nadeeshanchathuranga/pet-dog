@@ -28,7 +28,7 @@
           leave-to="opacity-0 scale-95"
         >
           <DialogPanel
-            class="bg-white text-black border-4 border-blue-600 rounded-[20px] shadow-xl w-5/6 lg:w-4/6 p-6"
+            class="bg-white text-black border-4 border-blue-600 rounded-[20px] shadow-xl w-5/6 lg:w-3/6 p-6"
           >
             <div
               class="flex flex-col items-start justify-start w-full h-full px-2 pt-4"
@@ -76,42 +76,35 @@
                     {{ selectedProduct.category?.name ?? "No Category" }}
                   </p>
 
-                  <!-- <p class="pb-6 text-2xl font-bold text-black">
+                  <p class="pb-6 text-2xl font-bold text-black">
                     <span class="text-[#00000099] font-normal">Supplier : </span
                     >{{ selectedProduct.supplier?.name || "N/A" }}
-                  </p> -->
+                  </p>
 
-                  <!-- <p class="pb-6 text-2xl font-bold text-black">
+                  <p class="pb-6 text-2xl font-bold text-black">
                     <span class="text-[#00000099] font-normal"
                       >Product Code :
                     </span>
 
                     {{ selectedProduct?.code ?? "N/A" }}
-                  </p> -->
+                  </p>
                   <p class="pb-6 text-2xl font-bold text-black">
                     <span class="text-[#00000099] font-normal"
-                      >No of Guests :
+                      >Batch No :
                     </span>
 
-                    {{ selectedProduct?.no_guests ?? "N/A" }}
+                    {{ selectedProduct?.batch_no ?? "N/A" }}
                   </p>
 
-                  <p class="pb-6 text-2xl font-bold text-black">
-                    <span class="text-[#00000099] font-normal"
-                      >Product Description :
-                    </span>
 
-                    {{ selectedProduct?.description ?? "N/A" }}
-                  </p>
-
-                  <!-- <div
+                  <div
                     class="flex items-center justify-between w-full text-2xl"
                   >
                     <div class="flex flex-col w-full">
                       <p
                         class="text-justify text-[#00000099] text-2xl flex items-center pb-6"
                       >
-                        Base :
+                        Color :
 
                         <span class="font-bold text-black">
                           {{ selectedProduct?.color?.name ?? "N/A" }}
@@ -133,7 +126,7 @@
                         </span>
                       </p>
                     </div>
-                  </div> -->
+                  </div>
 
                   <div
                     class="flex items-center justify-between w-full pb-6 text-2xl"
@@ -145,14 +138,14 @@
                         LKR
                       </p>
                     </div>
-                    <!-- <div class="flex flex-col w-full">
+                    <div class="flex flex-col w-full">
                       <p class="text-[#00000099]">Cost Price :</p>
                       <p class="font-bold text-black">
                         {{ selectedProduct?.cost_price ?? "N/A" }}
 
                         LKR
                       </p>
-                    </div> -->
+                    </div>
                   </div>
 
                   <div
@@ -181,12 +174,12 @@
                         LKR
                       </p>
                     </div>
-                    <!-- <div class="flex flex-col w-full">
+                    <div class="flex flex-col w-full">
                       <p class="text-[#00000099]">Quantity :</p>
                       <p class="font-bold text-black">
                         {{ selectedProduct?.stock_quantity ?? "N/A" }}
                       </p>
-                    </div> -->
+                    </div>
                   </div>
 
                   <p class="pb-8 text-2xl font-bold text-black">
@@ -196,7 +189,7 @@
                     {{ formattedDate }}
                   </p>
 
-                  <!-- <div class="mt-2">
+                  <div class="mt-2">
                     <input
                       hidden
                       type="text"
@@ -212,70 +205,45 @@
                     >
                       Print Bar Code
                     </button>
-                  </div> -->
-
+                  </div>
                 </div>
               </div>
 
-              <div class="w-full">
-                <!-- Hidden container for printing -->
-                <div
-                  :class="{ hidden: !isVisible }"
-                  class="relative print-container"
-                  id="printContainer"
-                >
-                  <div
-                    class="flex items-center justify-center w-full space-x-4"
-                  >
-                    <p class="text-md font-bold text-black">
+              <!-- Hidden container for printing -->
+              <div
+                :class="{ hidden: !isVisible }"
+                id="printContainer"
+                class="print-container"
+              >
+                <div class="print-content">
+                  <!-- <div class="product-details">
+                    <p class="product-category">
                       {{ selectedProduct.category?.name || "N/A" }}
                     </p>
-                    <p class="text-md font-bold text-black">
-                      {{ selectedProduct?.selling_price ?? "N/A" }}
-                      LKR
+                    <p class="product-price">
+                      {{ selectedProduct?.selling_price ?? "N/A" }} LKR
                     </p>
-                  </div>
-                  <!-- <div
-                    class="absolute top-0 left-0 z-10 font-bold"
-                    style="padding: 5px; color: #000; font-size: 12px"
-                  >
-                    {{ selectedProduct.category.name }}
-                  </div>
-
-                  <div
-                    class="absolute top-0 right-0 z-10 font-bold"
-                    style="
-                      padding: 5px;
-                      color: #000;
-                      font-size: 12px;
-                      margin-right: 25px;
-                    "
-                  >
-                    {{ selectedProduct.selling_price }} LKR
                   </div> -->
 
-                  <svg id="barcodePrint"></svg>
+                  <p class="product-code">
+                    {{ selectedProduct?.name || "N/A" }}
+                  </p>
 
                   <!-- Barcode -->
+                  <svg id="barcodePrint"></svg>
 
-                  <p
-                    style="
-                      color: #000;
-                      text-align: center;
-                      width: 100%;
-                      padding-bottom: 5px;
-                    "
-                  >
+                  <!-- <p class="product-code">
                     {{ selectedProduct?.code ?? "N/A" }}
-                  </p>
+                  </p> -->
 
-                  <p style="color: #000; text-align: center; width: 100%">
-                    [{{ selectedProduct.size?.name || "N/A" }}] -
-                    {{ selectedProduct.color?.name || "N/A" }}
-                  </p>
-                  <p style="color: #000; text-align: center; width: 100%">
-                    {{ selectedProduct?.name ?? "N/A" }}
-                  </p>
+                  <div class="product-details">
+                    <p class="product-category">
+                      {{ selectedProduct?.code ?? "N/A" }}
+                    </p>
+                    <p class="product-price">
+                      {{ selectedProduct?.selling_price ?? "N/A" }} LKR
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -356,20 +324,11 @@ function generateAndPrintBarcode() {
   JsBarcode(barcodePrintElement, input, {
     format: "CODE128", // Code 128 is compact and ideal for small labels
     lineColor: "#000", // Black lines for high contrast
-    width: 1.3, // Narrower lines to fit more content within the label
-    height: 60, // Shorter height to fit within the 30mm space
-    displayValue: false, // Disable text display if it overlaps with the barcode
-    margin: 0, // Remove default margins to maximize space usage
+    width: 1.2, // Wider bars to fill the label width
+    height: 50, // Barcode height adjusted for the label
+    displayValue: false, // Disable text display
+    margin: 0, // Remove default margins
   });
-
-  // JsBarcode(barcodePrintElement, input, {
-  //   format: "CODE128",
-  //   // format: "EAN13",
-  //   lineColor: "#000",
-  //   width: 1.25,
-  //   height: 100,
-  //   displayValue: false,
-  // });
 
   const printContents = document.getElementById("printContainer").innerHTML;
   const originalContents = document.body.innerHTML;
@@ -382,28 +341,64 @@ function generateAndPrintBarcode() {
 }
 </script>
 
-
-
 <style>
 @media print {
-  #barcodePrint {
-    display: block;
-    /* Ensure the SVG behaves like a block-level element */
-    margin: 0 auto;
-    /* Horizontally center using auto margins */
-    /* margin-top: 10px; */
-  }
-
-  .print-container {
+  /* Label container */
+  #printContainer {
     display: flex;
     justify-content: center;
-    /* Horizontally center content inside the container */
     align-items: center;
-    /* Vertically center content inside the container */
+    width: 100%;
     height: 100%;
-    /* Ensure container takes full height for vertical centering */
+    margin-top: 0;
+  }
+
+  /* Print content */
+  .print-content {
     text-align: center;
-    /* Center text within the container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    margin-top: 2mm;
+  }
+
+  /* Barcode centered and full width */
+  #barcodePrint {
+    width: 100%;
+    margin-left: 12mm;
+  }
+
+  /* Product details */
+  .product-details {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    font-size: 10px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-left: 12mm;
+  }
+
+  .product-category,
+  .product-price {
+    color: #000;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Product code */
+  .product-code {
+    color: #000;
+    font-size: 10px;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-left: 10mm;
   }
 }
 </style>
+
