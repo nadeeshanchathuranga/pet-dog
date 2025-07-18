@@ -501,9 +501,11 @@
                               <input
                                  type="number"
                                  id="stock_quantity"
+
                                  v-model="form.stock_quantity"
                                  class="w-full px-4 py-2 mt-2 text-black bg-white rounded-md focus:outline-none focus:ring focus:ring-blue-600"
                                  placeholder="Enter stock quantity"
+                                  required
                                  />
                               <span
                                  v-if="form.errors.stock_quantity"

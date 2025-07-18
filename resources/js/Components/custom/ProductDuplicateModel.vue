@@ -48,6 +48,8 @@
                                     v-model="form.name"
                                     type="text"
                                     id="name"
+
+                                     required
                                     class="w-full px-4 py-2 mt-2 text-black rounded-md focus:outline-none focus:ring focus:ring-blue-600"
                                     />
                                  <span v-if="form.errors.name" class="mt-4 text-red-500">
@@ -319,6 +321,7 @@
                                  v-model="form.stock_quantity"
                                  class="w-full px-4 py-2 mt-2 text-black bg-white rounded-md focus:outline-none focus:ring focus:ring-blue-600"
                                  placeholder="Stock quantity"
+                                  required
                                  />
                            </div>
                            <div class="w-full">

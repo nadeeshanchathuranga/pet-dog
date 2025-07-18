@@ -56,6 +56,8 @@
                                     type="text"
                                     id="name"
                                     class="w-full px-4 py-2 mt-2 text-black rounded-md focus:outline-none focus:ring focus:ring-blue-600"
+ required
+
                                     />
                                  <span v-if="form.errors.name" class="mt-4 text-red-500">
                                  {{ form.errors.name }}</span
@@ -324,8 +326,10 @@
                                  type="number"
                                  id="stock_quantity"
                                  v-model="form.stock_quantity"
+
                                  class="w-full px-4 py-2 mt-2 text-black bg-white rounded-md focus:outline-none focus:ring focus:ring-blue-600"
                                  placeholder="Stock quantity"
+                                  required
                                  />
                            </div>
                            <div class="w-full">
