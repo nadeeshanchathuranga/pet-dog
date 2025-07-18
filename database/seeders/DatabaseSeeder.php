@@ -15,46 +15,48 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        if (!\App\Models\User::where('email', 'sasees@admin.com')->exists()) {
+        if (!\App\Models\User::where('email', 'admin@admin.com')->exists()) {
     \App\Models\User::factory()->create([
-        'name' => 'Adminsasees',
-        'email' => 'sasees@admin.com',
+        'name' => 'admin',
+        'email' => 'admin@admin.com',
         'role_type' => 'Admin',
-        'password' => Hash::make('naturalAdmin@sasees'),
+        'password' => Hash::make('admin&petdoc'),
     ]);
 }
 
-if (!\App\Models\User::where('email', 'chaminda@admin.com')->exists()) {
+if (!\App\Models\User::where('email', 'manager@manager.com')->exists()) {
     \App\Models\User::factory()->create([
-        'name' => 'Adminchaminda',
-        'email' => 'chaminda@admin.com',
+        'name' => 'manager',
+        'email' => 'manager@manager.com',
+        'role_type' => 'Manager',
+        'password' => Hash::make('manager&petdoc'),
+    ]);
+}
+
+if (!\App\Models\User::where('email', 't1@cashier.com')->exists()) {
+    \App\Models\User::factory()->create([
+        'name' => 't1',
+        'email' => 't1@cashier.com',
+        'role_type' => 'Cashier',
+        'password' => Hash::make('cashier&petdoc'),
+    ]);
+}
+
+if (!\App\Models\User::where('email', 'demo@demo.com')->exists()) {
+    \App\Models\User::factory()->create([
+        'name' => 'demo',
+        'email' => 'demo@demo.com',
         'role_type' => 'Admin',
-        'password' => Hash::make('naturalAdmin@chaminda'),
+        'password' => Hash::make('D3moStr0ngP@ss!'),
     ]);
 }
 
 
 
 
-if (!\App\Models\User::where('email', 'chaminda@admin.com')->exists()) {
-    \App\Models\User::factory()->create([
-        'name' => 'Cashierchaminda',
-        'email' => 'chaminda@admin.com',
-        'role_type' => 'Cashier',
-        'password' => Hash::make('naturalCashier@chaminda'),
-    ]);
-}
-
-if (!\App\Models\User::where('email', 'sasees@admin.com')->exists()) {
-    \App\Models\User::factory()->create([
-        'name' => 'Cashiersasees',
-        'email' => 'sasees@admin.com',
-        'role_type' => 'Cashier',
-        'password' => Hash::make('naturalCashier@sasees'),
-    ]);
-}
-
-
-
+        // $this->call([
+        //     ColorSeeder::class,
+        //     SizeSeeder::class,
+        // ]);
     }
 }
