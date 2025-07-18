@@ -24,10 +24,10 @@
                      </div>
                   </div>
                   <div class="flex justify-center items-center space-x-4 pt-4 mt-4">
-                     <p @click="handlegGuideReceipt"
+                     <!-- <p @click="handlegGuideReceipt"
                         class="cursor-pointer bg-amber-600 text-white font-bold uppercase tracking-wider px-4 shadow-xl   py-4 rounded-xl">
                     Guid Reciept
-                     </p>
+                     </p> -->
                      <p @click="handlePrintReceipt"
                         class="cursor-pointer bg-blue-600 text-white font-bold uppercase tracking-wider px-4 shadow-xl   py-4 rounded-xl">
                         Print Receipt
@@ -258,7 +258,7 @@ const receiptHTML = `
         <div class="receipt-container">
 
  <div class="header "  style="text-align: center;">
-                  <img src="/images/billlogo.png" style="width: 250px; height:110px;" />
+                  <img src="/images/billlog.png" style="width: 150px; height:150px;" />
            ${companyInfo?.value?.name ? `<h1>${companyInfo.value.name}</h1>` : ''}
   ${companyInfo?.value?.address ? `<p>${companyInfo.value.address}</p>` : ''}
   ${(companyInfo?.value?.phone || companyInfo?.value?.phone2 || companyInfo?.value?.email)

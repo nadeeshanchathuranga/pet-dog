@@ -534,7 +534,7 @@ private function generateUniqueBarcode($length = 12)
         'preorder_level_qty'    => 'nullable|integer|min:0',
         'batch_no'              => 'nullable|string|max:50',
         'purchase_date'         => 'nullable|date',
-        'whole_price'           => 'required|numeric|min:0',
+        'whole_price'           => 'nullable|numeric|min:0',
         'final_whole_price'     => 'nullable|numeric|min:0',
         'wholesale_discount'    => 'nullable|numeric|min:0|max:100',
     ]);
