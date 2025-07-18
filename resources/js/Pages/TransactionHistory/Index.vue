@@ -108,17 +108,12 @@
                                 :class="['p-4', 'font-bold', 'border-gray-200', history.is_return_bill == 1 ? 'text-red-500' : '']">
                                 {{ history.is_return_bill == 1 ? history.order_id + ' - Return Bill' : history.order_id }}
 
-                              <p style="font-size: 10px;">
-                                Guid Name:
-                                <span :style="{ color: !history.guide_name ? 'gray' : 'inherit' }">
-                                  {{ history.guide_name || 'N/A' }}
-                                </span>
-                              </p>
+
                             </td>
                               <td class="p-4 font-bold border-gray-200 text-sm leading-5">
                               Base Total: {{ formatAmount(history.total_amount) }} LKR<br>
                               Discount: {{ formatAmount(history.custom_discount) }} %<br>
-                              Guide: {{ formatAmount(history.guide_cash) }} LKR<br>
+
                               Final Total:
                               <span class="inline-block px-2 py-1 text-xs font-semibold text-white bg-green-500 rounded">
                                 {{
@@ -197,12 +192,12 @@
 
                            <td class="p-4 font-bold border-gray-200">
   <div class="flex flex-wrap gap-2 mx-auto">
-    <button
+    <!-- <button
       @click="handlegGuideReceipt(history)"
       class="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600"
     >
       Guid Receipt
-    </button>
+    </button> -->
 
     <button
       @click="printReceipt(history)"
@@ -457,6 +452,14 @@ const getSafeValue = (obj, path) => {
         .text-right {
             text-align: right;
         }
+
+         .footer h5{
+                            text-align: center;
+                            font-size: 14px;
+                            font-weight: bold;
+                            margin: 4px 0;
+
+                        }
       </style>
     </head>
     <body>
@@ -551,6 +554,7 @@ const getSafeValue = (obj, path) => {
         </div>
 
         <div class="footer">
+                      <h5>ඔබ විසින් ගෙන යනු ලබන ඖෂධ සහ භාණ්ඩ නැවත බාර නොගන්නා බව කරුණාවෙන් සලකන්න.</h5>
             <p>THANK YOU COME AGAIN</p>
             <p class="italic">Let the quality define its own standards</p>
             <p style="font-weight: bold;">Powered by JAAN Network (Pvt) Ltd.</p>
@@ -698,6 +702,13 @@ const getSafeValue = (obj, path) => {
         .text-right {
             text-align: right;
         }
+             .footer h5{
+                            text-align: center;
+                            font-size: 16px;
+                            font-weight: bold;
+                            margin: 4px 0;
+
+                        }
       </style>
     </head>
     <body>
@@ -808,6 +819,7 @@ const getSafeValue = (obj, path) => {
         </div>
 
         <div class="footer">
+                 <h5>ඔබ විසින් ගෙන යනු ලබන ඖෂධ සහ භාණ්ඩ නැවත බාර නොගන්නා බව කරුණාවෙන් සලකන්න.</h5>
             <p>THANK YOU COME AGAIN</p>
             <p class="italic">Let the quality define its own standards</p>
             <p style="font-weight: bold;">Powered by JAAN Network (Pvt) Ltd.</p>
@@ -893,7 +905,7 @@ const submitPayment = () => {
 const markGuideCompleted = async (saleId) => {
   try {
     await axios.put(`/sales/${saleId}/mark-guide-completed`);
-    refreshData(); 
+    refreshData();
   } catch (error) {
     console.error("Failed to update guide status:", error);
     alert("An error occurred while updating the status.");

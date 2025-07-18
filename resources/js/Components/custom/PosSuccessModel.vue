@@ -246,6 +246,12 @@ const receiptHTML = `
                 font-size: 10px;
                 margin-top: 16px;
             }
+                         .footer-h5{
+                text-align: center;
+                font-size: 14px;
+                font-weight: bold;
+                margin: 4px 0;
+    }
             .footer p {
                 margin: 6px 0;
             }
@@ -345,6 +351,8 @@ const receiptHTML = `
 
         </div>
         <div class="footer">
+
+            <h5 class="footer-h5">ඔබ විසින් ගෙන යනු ලබන ඖෂධ සහ භාණ්ඩ නැවත බාර නොගන්නා බව කරුණාවෙන් සලකන්න.</h5>
             <p>THANK YOU COME AGAIN</p>
             <p class="italic">Let the quality define its own standards</p>
             <p style="font-weight: bold;">Powered by JAAN Network Ltd.</p>
@@ -541,6 +549,14 @@ const receiptHTML = `
                 font-size: 10px;
                 margin-top: 16px;
             }
+
+             .footer-h5{
+                text-align: center;
+                font-size: 14px;
+                font-weight: bold;
+                margin: 4px 0;
+    }
+
             .footer p {
                 margin: 6px 0;
             }
@@ -663,6 +679,8 @@ const receiptHTML = `
   </div>
 
         <div class="footer">
+
+            <h5 class="footer-h5">ඔබ විසින් ගෙන යනු ලබන ඖෂධ සහ භාණ්ඩ නැවත බාර නොගන්නා බව කරුණාවෙන් සලකන්න.</h5>
             <p>THANK YOU COME AGAIN</p>
             <p class="italic">Let the quality define its own standards</p>
             <p style="font-weight: bold;">Powered by JAAN Network Ltd.</p>
