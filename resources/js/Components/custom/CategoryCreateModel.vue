@@ -1,4 +1,4 @@
-<template>
+<template v-if="open">
   <TransitionRoot as="template" :show="open">
     <Dialog class="relative z-10" @close="$emit('update:open', false)">
       <!-- Modal Overlay -->
@@ -109,12 +109,7 @@
                   Save
                 </button>
                 <button
-                  @click="
-                    () => {
-                      playClickSound();
-                      emit('update:open', false);
-                    }
-                  "
+                  @click="closeModal"
                   class="px-4 py-2 text-gray-700 bg-gray-300 rounded hover:bg-gray-400"
                   type="button"
                 >
@@ -146,6 +141,11 @@ const playClickSound = () => {
 };
 
 const emit = defineEmits(["update:open"]);
+
+const closeModal = () => {
+  playClickSound();
+  emit("update:open", false);
+};
 
 // The `open` prop controls the visibility of the modal
 defineProps({
