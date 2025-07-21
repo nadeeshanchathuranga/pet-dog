@@ -48,7 +48,7 @@
         </div>
 
 
-  <div class="relative inline-block">
+  <!-- <div class="relative inline-block">
 
 <button
   @click="handleBulkBarcode"
@@ -56,14 +56,14 @@
 >
   Generate Bulk Barcode
 </button>
-  </div>
+  </div> -->
 
 
    <div class="relative inline-block">
                     <button
                         @click="openExpiryModal"
                         :class="[
-                            'md:px-12 py-4 px-4 md:text-lg font-bold tracking-wider text-white uppercase rounded-xl  ',
+                            'md:px-12 py-4  md:text-lg font-bold tracking-wider text-white uppercase rounded-xl  ',
                             expiryAlertCount > 0
                                 ? 'bg-amber-600 hover:bg-amber-700 cursor-pointer '
                                 : 'bg-amber-600 hover:bg-amber-700 cursor-pointer'
@@ -82,7 +82,7 @@
 
                     <span
                         v-if="expiryAlertCount > 0"
-                        class="absolute -top-2 -right-2 bg-yellow-500 text-black text-lg font-bold px-3 py-1 rounded-full border-2 border-white shadow-lg animate-bounce"
+                        class="absolute -top-2 bg-yellow-500 text-black text-lg font-bold px-3 py-1 rounded-full border-2 border-white shadow-lg animate-bounce"
                     >
                         {{ expiryAlertCount }}
                     </span>

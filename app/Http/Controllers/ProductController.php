@@ -97,49 +97,40 @@ class ProductController extends Controller
     $stockStatus = $request->input('stockStatus');
     $selectedCategory = $request->input('selectedCategory');
 
-    $rawProducts = Product::with(['category', 'color', 'size', 'supplier'])
-
-     ->whereNotNull('name')
+    // Base query
+    $productsQuery = Product::with(['category', 'color', 'size', 'supplier'])
+        ->whereNotNull('name')
         ->when($query, fn($q) => $q->where(fn($sub) =>
             $sub->where('name', 'like', "%{$query}%")
-                 ->orWhere('code', 'like', "%{$query}%")))
-        ->when($selectedColor, fn($q) => $q->whereHas('color', fn($c) => $c->where('name', $selectedColor)))
-        ->when($selectedSize, fn($q) => $q->whereHas('size', fn($s) => $s->where('name', $selectedSize)))
-        ->when($selectedCategory, fn($q) => $q->where('category_id', $selectedCategory))
+                ->orWhere('code', 'like', "%{$query}%")))
+        ->when($selectedColor, fn($q) =>
+            $q->whereHas('color', fn($c) => $c->where('name', $selectedColor)))
+        ->when($selectedSize, fn($q) =>
+            $q->whereHas('size', fn($s) => $s->where('name', $selectedSize)))
+        ->when($selectedCategory, fn($q) =>
+            $q->where('category_id', $selectedCategory))
         ->when($stockStatus, function ($q) use ($stockStatus) {
             if ($stockStatus === 'in') {
                 $q->where('stock_quantity', '>', 0);
             } elseif ($stockStatus === 'out') {
                 $q->where('stock_quantity', '<=', 0);
             }
-        })
-        ->orderByDesc('id')
-        ->get();
+        });
 
-
-
-    // Filter to get only one record per code with stock > 0 (oldest first)
-    $filteredProducts = $rawProducts->groupBy('code')->map(function ($group) {
-        return $group->firstWhere('stock_quantity', '>', 0) ?? $group->first();
-    })->values(); // `values()` to reset array indexes
-
-    // Apply sort by price if specified
-    if (in_array($sortOrder, ['asc', 'desc'])) {
-        $filteredProducts = $filteredProducts->sortBy('selling_price', SORT_REGULAR, $sortOrder === 'desc')->values();
+    // Apply price sorting if specified
+    if ($sortOrder === 'asc' || $sortOrder === 'desc') {
+        $productsQuery->orderBy('selling_price', $sortOrder);
+    } else {
+        $productsQuery->orderBy('created_at', 'desc');
     }
 
-    // Paginate manually using Laravel’s LengthAwarePaginator
-    $perPage = 8;
-    $currentPage = LengthAwarePaginator::resolveCurrentPage();
-    $pagedProducts = new LengthAwarePaginator(
-        $filteredProducts->forPage($currentPage, $perPage),
-        $filteredProducts->count(),
-        $perPage,
-        $currentPage,
-        ['path' => request()->url(), 'query' => request()->query()]
-    );
+    // Final paginated result
+    $products = $productsQuery->paginate(8)->withQueryString();
 
-    // Load other data
+    // Total filtered products
+    $totalProducts = $products->total();
+
+    // Other dropdown / alert data
     $allcategories = Category::with('parent')->get()->map(function ($category) {
         $category->hierarchy_string = $category->hierarchy_string;
         return $category;
@@ -148,33 +139,30 @@ class ProductController extends Controller
     $preOrderProducts = Product::with(['category', 'supplier', 'color', 'size'])
         ->whereColumn('total_quantity', '<=', 'preorder_level_qty')
         ->get();
+
     $preOrderAlertCount = $preOrderProducts->count();
 
+    $expiryProducts = Product::with(['category', 'supplier'])
+        ->whereNotNull('expire_date')
+        ->get()
+        ->map(function ($product) {
+            $product->days_left = Carbon::now()->diffInDays(Carbon::parse($product->expire_date), false);
+            $product->within_margin = $product->days_left <= $product->expiry_date_margin;
+            return $product;
+        })
+        ->filter(fn ($p) => $p->within_margin)
+        ->values();
 
-$expiryProducts = Product::with(['category', 'supplier'])
-    ->whereNotNull('expire_date')
-    ->get()
-    ->map(function ($product) {
-        $product->days_left = Carbon::now()->diffInDays(Carbon::parse($product->expire_date), false);
-        $product->within_margin = $product->days_left <= $product->expiry_date_margin;
-        return $product;
-    })
-    ->filter(fn ($p) => $p->within_margin)
-    ->values(); // 👈 Important to reset keys
-
-$expiryAlertCount = $expiryProducts->count();
-
-
-
+    $expiryAlertCount = $expiryProducts->count();
 
     return Inertia::render('Products/Index', [
-        'products' => $pagedProducts,
-        'rawProducts' => $rawProducts,
+        'products' => $products,
+        'rawProducts' => $products->items(), // send current page items for barcode modal
         'allcategories' => $allcategories,
         'colors' => Color::latest()->get(),
         'sizes' => Size::latest()->get(),
         'suppliers' => Supplier::latest()->get(),
-        'totalProducts' => $filteredProducts->count(),
+        'totalProducts' => $totalProducts,
         'search' => $query,
         'sort' => $sortOrder,
         'color' => $selectedColor,
