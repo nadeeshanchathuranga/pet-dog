@@ -106,7 +106,7 @@ class CategoryController extends Controller
             abort(403, 'Unauthorized');
         }
         $validated = $request->validate([
-            'name' => 'required|string|max:191|unique:categories,name',
+            'name' => 'required|string|max:255',
             'parent_id' => 'nullable|exists:categories,id',
         ]);
 
@@ -127,6 +127,7 @@ class CategoryController extends Controller
 
         return redirect()->route('categories.index')->banner('Category updated successfully.');
 
+        // return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
     }
 
     public function destroy(Category $category)
